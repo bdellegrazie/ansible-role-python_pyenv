@@ -1,0 +1,26 @@
+---
+python_pyenv_packages:
+  - git
+python_pyenv_user: root
+python_pyenv_url: https://github.com/pyenv/pyenv.git
+python_pyenv_version: 'v1.2.7'
+python_pyenv_pypi_mirror_url: "https://pypi.python.org/simple"
+python_pyenv_pythons_mirror_url: "https://pyenv.github.io/pythons"
+
+python_pyenv_pythons_base_url: "https://www.python.org/ftp/python"
+python_pyenv_pythons:
+  - name: Python
+    filename: Python-2.7.15.tar.xz
+    version: '2.7.15'
+    checksum: 'sha1:f99348a095ec4a6411c84c0d15343d11920c9724'
+
+python_pyenv_python_default_version: system
+
+python_pyenv_tmpdir: /tmp
+
+python_pyenv_virtualenv_url: https://github.com/pyenv/pyenv-virtualenv.git
+python_pyenv_virtualenv_version: 'v1.1.3'
+python_pyenv_plugins:
+  - name: pyenv-virtualenv
+    repo: "{{ python_pyenv_virtualenv_url }}"
+    version: "{{ python_pyenv_virtualenv_version }}"

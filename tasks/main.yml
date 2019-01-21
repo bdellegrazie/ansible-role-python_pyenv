@@ -1,0 +1,126 @@
+---
+- name: OS Family Vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "distro-{{ ansible_distribution | lower }}-{{ ansible_distribution_version }}.yml"
+    - "distro-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
+    - "family-{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version }}.yml"
+    - "family-{{ ansible_os_family | lower }}.yml"
+
+- name: Dependencies
+  become: true
+  package:
+    name: "{{ python_pyenv_packages }}"
+
+- name: User Details
+  become: true
+  getent:
+    database: passwd
+    key: "{{ python_pyenv_user }}"
+
+- name: Facts
+  set_fact:
+    _python_pyenv_home: "{{ getent_passwd[python_pyenv_user][4] }}/.pyenv"
+    _python_pyenv_cache_dir: "{{ getent_passwd[python_pyenv_user][4] }}/.pyenv/cache"
+    _python_pyenv_user_home: "{{ getent_passwd[python_pyenv_user][4] }}"
+    _python_pyenv_user_group: "{{ getent_passwd[python_pyenv_user][2] }}"
+
+- name: Checkout Pyenv
+  become: true
+  become_user: "{{ python_pyenv_user }}"
+  git:
+    repo: "{{ python_pyenv_url }}"
+    version: "{{ python_pyenv_version | default(omit) }}"
+    dest: "{{ _python_pyenv_home }}"
+
+- name: Cache Dir
+  become: true
+  file:
+    path: '{{ _python_pyenv_cache_dir }}'
+    owner: '{{ python_pyenv_user }}'
+    group: '{{ _python_pyenv_user_group }}'
+    mode: 'u=rwx,g=rx,o='
+    state: directory
+
+- name: Checkout Plugins
+  become: true
+  become_user: "{{ python_pyenv_user }}"
+  git:
+    repo: "{{ item.repo }}"
+    version: "{{ item.version | default(omit) }}"
+    dest: "{{ _python_pyenv_home ~ '/plugins/' ~ item.name }}"
+  with_items: "{{ python_pyenv_plugins }}"
+  loop_control:
+    label: "{{ item.name ~ ':' ~ (item.version | default('master')) }}"
+
+- name: PyEnv | Configure bashrc
+  become: true
+  become_user: "{{ python_pyenv_user }}"
+  lineinfile:
+    dest: "{{ _python_pyenv_user_home }}/.bashrc"
+    regexp: "{{ item.regexp | default(omit) }}"
+    state: present
+    create: true
+    line: "{{ item.value }}"
+  with_items:
+    - value: 'export PYENV_ROOT="$HOME/.pyenv"'
+      regex: '^export PYENV_ROOT='
+    - value: 'export PATH="$PYENV_ROOT/bin:$PATH"'
+      regex: '^export PATH="\$PYENV_ROOT/bin'
+    - value: 'export PYTHON_BUILD_MIRROR_URL={{ python_pyenv_pythons_mirror_url }}'
+      regex: '^export PYTHON_BUILD_MIRROR_URL='
+    - value: 'export PIPENV_PYPI_MIRROR={{ python_pyenv_pypi_mirror_url }}'
+      regex: '^export PIPENV_PYPI_MIRROR_URL='
+    - value: 'export CONFIGURE_OPTS="--enable-shared"'
+      regex: '^export CONFIGURE_OPTS='
+    - value: 'export PYTHON_CFLAGS="-O2"'
+      regex: '^export PYTHON_CFLAGS='
+    - value: 'eval "$(pyenv init -)"'
+    - value: 'eval "$(pyenv virtualenv-init -)"'
+
+- name: Download Pythons
+  become: true
+  get_url:
+    url: "{{ python_pyenv_pythons_base_url ~ '/' ~ item.version ~ '/' ~ item.filename }}"
+    dest: "{{ _python_pyenv_cache_dir ~ '/' ~ item.filename }}"
+    owner: '{{ python_pyenv_user }}'
+    group: '{{ _python_pyenv_user_group }}'
+    checksum: '{{ item.checksum | default(omit) }}'
+    mode: 'u=rw,g=r,o='
+    validate_certs: "{{ item.validate_certs | default(true) }}"
+  with_items: "{{ python_pyenv_pythons }}"
+  loop_control:
+    label: "{{ item.version }}"
+
+- name: Install Pythons
+  become: true
+  become_user: "{{ python_pyenv_user }}"
+  shell: ". {{ _python_pyenv_user_home }}/.bashrc && {{ _python_pyenv_home }}/bin/pyenv install {{ item.version }}"
+  args:
+    executable: "/bin/bash"
+    creates: "{{ _python_pyenv_home }}/versions/{{ item.version }}/bin/python"
+  environment:
+    TMPDIR: "{{ python_pyenv_tmpdir }}"
+  with_items: "{{ python_pyenv_pythons }}"
+  loop_control:
+    label: "{{ item.version }}"
+
+- name: Set Default Python Version
+  become: true
+  copy:
+    content: "{{ python_pyenv_python_default_version }}"
+    dest: "{{ _python_pyenv_home }}/version"
+    force: true
+    owner: "{{ python_pyenv_user }}"
+    group: "{{ _python_pyenv_user_group }}"
+    mode: "u=rw,go=r"
+  notify: Rehash Shims
+
+#- name: Upgrade pip
+#  become: true
+#  become_user: "{{ python_pyenv_user }}"
+#  shell: ". {{ _python_pyenv_user_home }}/.bashrc && {{ _python_pyenv_home }}/bin/pyenv exec pip install --upgrade pip"
+#  args:
+#    executable: "/bin/bash"
+#  notify: Rehash Shims
+#  tags: skip_ansible_lint

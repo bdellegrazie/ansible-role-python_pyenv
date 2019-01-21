@@ -1,0 +1,24 @@
+---
+# Molecule managed
+file:
+  /root/.pyenv:
+    exists: true
+    owner: root
+    group: root
+    mode: "0755"
+    filetype: directory
+  /root/.pyenv/versions/2.7.15:
+    exists: true
+    owner: root
+    group: root
+    mode: "0755"
+    filetype: directory
+command:
+  '/root/.pyenv/bin/pyenv --version':
+    exit-status: 0
+    stdout:
+      - /pyenv/
+  '/root/.pyenv/bin/pyenv version':
+    exit-status: 0
+    stdout:
+      - /system/

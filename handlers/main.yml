@@ -1,0 +1,7 @@
+---
+- name: Rehash Shims
+  become: true
+  become_user: "{{ python_pyenv_user }}"
+  shell: ". {{ _python_pyenv_user_home }}/.bashrc && {{ _python_pyenv_home }}/bin/pyenv rehash"
+  args:
+    executable: "/bin/bash"

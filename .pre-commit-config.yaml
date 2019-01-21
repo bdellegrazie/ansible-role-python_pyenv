@@ -21,8 +21,6 @@ repos:
     hooks:
     -   id: ansible-lint
         files: \.(yaml|yml)$
-        args:
-        - --exclude=.travis.yml
 #-   repo: local
 #    hooks:
 #    -   id: travis-lint

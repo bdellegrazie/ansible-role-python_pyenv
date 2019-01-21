@@ -1,0 +1,15 @@
+---
+python_pyenv_packages:
+  - bzip2
+  - bzip2-devel
+  - gcc
+  - git
+  - libffi-devel
+  - make
+  - openssl-devel
+  - readline-devel
+  - sqlite
+  - sqlite-devel
+  - tk-devel
+  - xz
+  - zlib-devel

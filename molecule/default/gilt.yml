@@ -1,0 +1,7 @@
+---
+- git: 'https://github.com/bdellegrazie/ansible-role-serverspec_test_dependencies.git'
+  version: 'v0.1.1'
+  dst: $MOLECULE_EPHEMERAL_DIRECTORY/roles/bdellegrazie.ansible-role-serverspec_test_dependencies/
+- git: 'https://github.com/geerlingguy/ansible-role-repo-epel.git'
+  version: '1.2.3'
+  dst: $MOLECULE_EPHEMERAL_DIRECTORY/roles/geerlingguy.repo-epel/
