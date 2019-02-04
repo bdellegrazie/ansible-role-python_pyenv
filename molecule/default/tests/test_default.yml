@@ -7,7 +7,7 @@ file:
     group: root
     mode: "0755"
     filetype: directory
-  /root/.pyenv/versions/2.7.15:
+  /root/.pyenv/versions/3.6.7:
     exists: true
     owner: root
     group: root
@@ -21,4 +21,12 @@ command:
   '/root/.pyenv/bin/pyenv version':
     exit-status: 0
     stdout:
-      - /system/
+      - /3\.6\.7/
+  '/root/.pyenv/bin/pyenv exec python3 --version':
+    exit-status: 0
+    stdout:
+      - /3\.6\.7/
+  '/root/.pyenv/bin/pyenv versions':
+    exit-status: 0
+    stdout:
+      - /3\.6\.7/

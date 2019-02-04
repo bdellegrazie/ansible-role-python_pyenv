@@ -9,9 +9,9 @@ python_pyenv_pythons_mirror_url: "https://pyenv.github.io/pythons"
 python_pyenv_pythons_base_url: "https://www.python.org/ftp/python"
 python_pyenv_pythons:
   - name: Python
-    filename: Python-2.7.15.tar.xz
-    version: '2.7.15'
-    checksum: 'sha1:f99348a095ec4a6411c84c0d15343d11920c9724'
+    filename: Python-3.6.7.tar.xz
+    version: '3.6.7'
+    checksum: 'sha1:dd2b0a8bf9b9617c57a0070b53065286c2142994'
 
 python_pyenv_python_default_version: system
 
