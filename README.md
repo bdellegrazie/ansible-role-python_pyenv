@@ -1,6 +1,6 @@
 # ansible-role-python_pyenv
 
-Installs Python's Pyenv and executes an install as needed
+Installs Python's [Pyenv](https://github.com/pyenv/pyenv) and executes an install as needed
 
 [![Build Status](https://travis-ci.org/bdellegrazie/ansible-role-python_pyenv.svg?branch=master)](https://travis-ci.org/bdellegrazie/ansible-role-python_pyenv)
 
@@ -48,6 +48,10 @@ convenience. This is essentially a static website constructed from a Git repo on
 The first two are easy and a straight copy of the repo will work, the third is not, the URLs inside the recipes need to be modified to point at internal mirrors for python downloads, readline etc.
 
 Note that if system python versions are sufficient, use of Pyenv is an unnecessary complication - instead use virtualenv and Pipenv to manage dependencies within a virtual environment
+
+# Testing
+
+Testing is performed with [Molecule](https://github.com/ansible/molecule) using [Goss](https://github.com/aelsabbahy/goss) as a verifier
 
 # License
 
