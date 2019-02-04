@@ -3,4 +3,3 @@
   roles:
     - role: geerlingguy.repo-epel
       when: ansible_os_family | lower == 'redhat'
-    - bdellegrazie.ansible-role-serverspec_test_dependencies
