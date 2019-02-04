@@ -15,6 +15,7 @@ python_pyenv_pythons:
 
 python_pyenv_python_default_version: system
 
+python_pyenv_user_profile: '.bashrc'
 python_pyenv_tmpdir: /tmp
 
 python_pyenv_virtualenv_url: https://github.com/pyenv/pyenv-virtualenv.git

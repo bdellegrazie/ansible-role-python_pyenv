@@ -16,6 +16,7 @@ None
 | `python_pyenv_user` | The user to install pyenv with | `root` |
 | `python_pyenv_url` | Git URL to download pyenv from | `https://github.com/pyenv/pyenv.git` |
 | `python_pyenv_version` | Git tag or hash of Pyenv to install | `v1.2.9` |
+| `python_pyenv_user_profile` | File to put profile changes into | `.bashrc` |
 | `python_pyenv_pythons_mirror_url` | URL of Pythons mirror on Github, override this for Nexus or Artifactory | `https://pyenv.github.io/pythons` |
 | `python_pyenv_pythons_base_url` | URL to download Python distributions from during run, override this for Nexus or Artifactory | `https://www.python.org/ftp/python` |
 | `python_pyenv_pythons` | Dict of pythons to install including checksum | See defaults |

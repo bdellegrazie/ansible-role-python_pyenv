@@ -53,11 +53,11 @@
   loop_control:
     label: "{{ item.name ~ ':' ~ (item.version | default('master')) }}"
 
-- name: PyEnv | Configure bashrc
+- name: Configure User Profile
   become: true
   become_user: "{{ python_pyenv_user }}"
   lineinfile:
-    dest: "{{ _python_pyenv_user_home }}/.bashrc"
+    dest: "{{ _python_pyenv_user_home }}/{{ python_pyenv_user_profile }}"
     regexp: "{{ item.regexp | default(omit) }}"
     state: present
     create: true
@@ -99,12 +99,3 @@
     group: "{{ _python_pyenv_user_group }}"
     mode: "u=rw,go=r"
   notify: Rehash Shims
-
-#- name: Upgrade pip
-#  become: true
-#  become_user: "{{ python_pyenv_user }}"
-#  shell: ". {{ _python_pyenv_user_home }}/.bashrc && {{ _python_pyenv_home }}/bin/pyenv exec pip install --upgrade pip"
-#  args:
-#    executable: "/bin/bash"
-#  notify: Rehash Shims
-#  tags: skip_ansible_lint
