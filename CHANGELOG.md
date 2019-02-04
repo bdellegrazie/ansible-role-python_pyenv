@@ -11,3 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 ### Fixed
 ### Security
+
+## [1.0.0] - 2019-02-04
+### Added
+- Initial version
+
+[Unreleased]: https://github.com/bdellegrazie/ansible-role-python_pyenv/compare/v1.0.0...HEAD
