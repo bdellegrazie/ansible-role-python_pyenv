@@ -69,8 +69,6 @@
       regex: '^export PATH="\$PYENV_ROOT/bin'
     - value: 'export PYTHON_BUILD_MIRROR_URL={{ python_pyenv_pythons_mirror_url }}'
       regex: '^export PYTHON_BUILD_MIRROR_URL='
-    - value: 'export PIPENV_PYPI_MIRROR={{ python_pyenv_pypi_mirror_url }}'
-      regex: '^export PIPENV_PYPI_MIRROR_URL='
     - value: 'export CONFIGURE_OPTS="--enable-shared"'
       regex: '^export CONFIGURE_OPTS='
     - value: 'export PYTHON_CFLAGS="-O2"'
