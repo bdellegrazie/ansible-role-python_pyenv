@@ -76,20 +76,6 @@
     - value: 'eval "$(pyenv init -)"'
     - value: 'eval "$(pyenv virtualenv-init -)"'
 
-- name: Download Pythons
-  become: true
-  get_url:
-    url: "{{ python_pyenv_pythons_base_url ~ '/' ~ item.version ~ '/' ~ item.filename }}"
-    dest: "{{ _python_pyenv_cache_dir ~ '/' ~ item.filename }}"
-    owner: '{{ python_pyenv_user }}'
-    group: '{{ _python_pyenv_user_group }}'
-    checksum: '{{ item.checksum | default(omit) }}'
-    mode: 'u=rw,g=r,o='
-    validate_certs: "{{ item.validate_certs | default(true) }}"
-  with_items: "{{ python_pyenv_pythons }}"
-  loop_control:
-    label: "{{ item.version }}"
-
 - name: Install Pythons
   become: true
   become_user: "{{ python_pyenv_user }}"
