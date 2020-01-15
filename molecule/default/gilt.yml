@@ -1,4 +1,4 @@
 ---
 - git: 'https://github.com/geerlingguy/ansible-role-repo-epel.git'
-  version: '1.2.3'
+  version: '1.2.4'
   dst: $MOLECULE_EPHEMERAL_DIRECTORY/roles/geerlingguy.repo-epel/
