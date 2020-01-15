@@ -3,7 +3,7 @@ python_pyenv_packages:
   - git
 python_pyenv_user: root
 python_pyenv_url: https://github.com/pyenv/pyenv.git
-python_pyenv_version: 'v1.2.13'
+python_pyenv_version: 'v1.2.16'
 python_pyenv_pythons_mirror_url: "https://pyenv.github.io/pythons"
 
 python_pyenv_pythons_base_url: "https://www.python.org/ftp/python"
