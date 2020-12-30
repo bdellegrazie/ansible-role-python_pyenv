@@ -24,6 +24,8 @@
     _python_pyenv_cache_dir: "{{ getent_passwd[python_pyenv_user][4] }}/.pyenv/cache"
     _python_pyenv_user_home: "{{ getent_passwd[python_pyenv_user][4] }}"
     _python_pyenv_user_group: "{{ getent_passwd[python_pyenv_user][2] }}"
+    # Needed because python has executables that are run in tmp directory
+    _python_pyenv_tmpdir: "{{ getent_passwd[python_pyenv_user][4] }}/tmp"
 
 - name: Checkout Pyenv
   become: true
@@ -56,7 +58,7 @@
 - name: Configure User Profile
   become: true
   become_user: "{{ python_pyenv_user }}"
-  lineinfile:
+  lineinfile:  # noqa 208
     dest: "{{ _python_pyenv_user_home }}/{{ python_pyenv_user_profile }}"
     regexp: "{{ item.regexp | default(omit) }}"
     state: present
@@ -84,7 +86,7 @@
     executable: "/bin/bash"
     creates: "{{ _python_pyenv_home }}/versions/{{ item.version }}/bin/python"
   environment:
-    TMPDIR: "{{ python_pyenv_tmpdir }}"
+    TMPDIR: "{{ _python_pyenv_tmpdir }}"
   with_items: "{{ python_pyenv_pythons }}"
   loop_control:
     label: "{{ item.version }}"

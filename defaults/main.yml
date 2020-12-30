@@ -3,20 +3,19 @@ python_pyenv_packages:
   - git
 python_pyenv_user: root
 python_pyenv_url: https://github.com/pyenv/pyenv.git
-python_pyenv_version: 'v1.2.16'
+python_pyenv_version: 'v1.2.21'
 python_pyenv_pythons_mirror_url: "https://pyenv.github.io/pythons"
 
 python_pyenv_pythons_base_url: "https://www.python.org/ftp/python"
 python_pyenv_pythons:
   - name: Python
-    filename: Python-3.6.7.tar.xz
-    version: '3.6.7'
-    checksum: 'sha1:dd2b0a8bf9b9617c57a0070b53065286c2142994'
+    filename: Python-3.9.0.tar.xz
+    version: '3.9.0'
+    checksum: 'sha1:ff1fc8c37d5d4b09ec3bf0d84f3e5b97745c6704'
 
 python_pyenv_python_default_version: system
 
 python_pyenv_user_profile: '.bashrc'
-python_pyenv_tmpdir: /tmp
 
 python_pyenv_virtualenv_url: https://github.com/pyenv/pyenv-virtualenv.git
 python_pyenv_virtualenv_version: 'v1.1.5'

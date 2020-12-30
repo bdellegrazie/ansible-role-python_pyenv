@@ -10,17 +10,17 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 6
         - 7
-    - name: Fedora
-      versions:
-        - all
+        - 8
     - name: Ubuntu
       versions:
-        - all
+        - 16.04
+        - 18.04
+        - 20.04
     - name: Debian
       versions:
-        - all
+        - 9
+        - 10
 
   galaxy_tags:
     - python
