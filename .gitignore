@@ -1,10 +1,6 @@
-# Test script
-tests/test.sh
-
 # build products...
 *.py[co]
 build
-.venv/
 
 # Backup files...
 *~
@@ -26,11 +22,7 @@ build
 # Ansible stuff...
 *.retry
 ansible.cfg
+.venv/
 
-# Test kitchen
-.kitchen/
-.kitchen.local.yml
-
-# Ruby
-.bundle/
-vendor/
+# direnv
+.direnv/
